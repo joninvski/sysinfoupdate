@@ -1,2 +1,0 @@
-
-if dmesg don't work, use /var/log/dmesg

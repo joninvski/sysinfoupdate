@@ -1,2 +1,0 @@
-
-collect hdparm info by calling hdparm and sdparm using function echo_execute

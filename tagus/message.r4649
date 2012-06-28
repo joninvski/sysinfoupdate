@@ -1,2 +1,0 @@
-
-fix hdparm -tT on cciss hardware, by waiting for hpacucli-update to finish
