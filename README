@@ -1,0 +1,65 @@
+                            sysinfoupdate
+
+
+1. Overview
+-----------
+
+sysinfoupdate is a script to collect system information into a
+*diario* directory.  This information will be help full to track
+changes made to a system.  Changes made by the system administrator or
+by the instalation of new software, upgrades, security updates, or
+other changes.
+
+
+2. Status
+---------
+
+Well supported platforms:
+
+ * Debian GNU/Linux:
+ * Linux, Debian Derivatives
+
+
+May work on the platforms:
+
+  * Linux
+  * Mac OS X
+  * Un*x
+
+
+3. Installation
+----------
+
+Copy a script to someplace in your path and create a *diario*
+directory in your home directory or root user.
+
+
+4. Running
+----------
+
+This script works best when is called as user root and *diario*
+directory is in a version control system as for example git or
+subversion.
+
+
+5. Authors
+----------
+
+The main developer is:
+
+ * Jose M Calhariz
+
+
+6. Copyright & License
+----------
+
+This script is copyright to Instituto Superior Técnico.
+
+This script is licensed under the GNU General Public License, Version
+2, June 1991 or better.
+
+
+
+
+<!--  LocalWords:  Calhariz sysinfoupdate diario
+ -->
