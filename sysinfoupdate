@@ -7,7 +7,7 @@
 # License: GPL-2
 #
 BRANCH="git branch master"
-VERSION='v0.9.13'
+VERSION='v0.9.14'
 
 
 
@@ -260,7 +260,7 @@ function md-update () {
     if [ ! -x ${MDADM} ] ; then
 	return
     fi
-    ${MDADM} mdadm --detail /dev/md* >> ${FILEMD} 2>&1
+    ${MDADM} --detail /dev/md* >> ${FILEMD} 2>&1
     cat-file /proc/mdstat      ${FILEMD}
     cat-file /proc/sys/dev/raid/speed_limit_max ${FILEMD}
     cat-file /proc/sys/dev/raid/speed_limit_min ${FILEMD}
