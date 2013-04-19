@@ -7,7 +7,7 @@
 # License: GPL-2
 #
 BRANCH="git branch master"
-VERSION='v0.9.15'
+VERSION='v0.9.16'
 
 
 
@@ -172,7 +172,7 @@ function partition-update () {
 
     echo -n "."
     > ${FILEPART}
-    for disk in /dev/hd? /dev/sd? /dev/vd? /dev/xvd? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
+    for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/xvd? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
 	echo -n "${disk} "
 	if test -r ${disk} ; then
 	echo -n "${disk} "
@@ -652,7 +652,7 @@ function hdparm-update () {
 
     #set -x
     > ${FILEHDPARM}
-    for disk in /dev/hd? /dev/sd? /dev/vd? /dev/xvd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
+    for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/xvd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
 	if test -r ${disk} ; then
 	    echo -n " " ${disk} " "
  	    echo_execute ${FILEHDPARM} ${HDPARM}    ${disk}
@@ -664,7 +664,7 @@ function hdparm-update () {
     done
 
     > ${FILESDPARM}
-    for disk in /dev/hd? /dev/sd? /dev/vd? /dev/xvd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
+    for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/xvd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
 	if test -r ${disk} ; then
 	    echo -n " " ${disk} " "
  	    echo_execute ${FILESDPARM} ${SDPARM} --all                  ${disk}
@@ -706,7 +706,7 @@ function smart-update () {
     done
     #set -x
 
-    for disk in /dev/hd? /dev/sd? /dev/vd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc ; do
+    for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc ; do
 	if test -r ${disk} ; then
 	    echo -n " " ${disk} " "
  	    echo_execute ${FILESMART} ${SMARTCTL} -a ${disk}
