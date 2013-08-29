@@ -214,6 +214,10 @@ function fslist-update () {
     echo_execute ${FILEFS} ${DF} -h
     echo "inodes of filesystems df -iH" >> ${FILEFS}
     echo_execute ${FILEFS} ${DF} -iH
+    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-id
+    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-label
+    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-path
+    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-uuid
 }
 
 function fstab-update () {
