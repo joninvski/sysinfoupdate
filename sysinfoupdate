@@ -97,6 +97,7 @@ set-command GETEDID get-edid
 set-command PARSEEDID parse-edid
 set-command IPMITOOL ipmitool
 set-command TWCLI tw_cli "For 3ware/LSI Controlers"
+set-command STORCLI storcli "For LSI Controllers"
 set-command IFCONFIG ifconfig
 set-command ROUTE route
 set-command IP ip
@@ -1056,6 +1057,63 @@ function twcli-update () {
 }
 
 
+function storcli-update () {
+    FILESTORCLI=${DIARIO}/storcli-report
+    
+
+    if ! which ${STORCLI} > /dev/null ; then
+	return
+    fi
+
+    > ${FILESTORCLI}
+    echo_execute ${FILESTORCLI} ${STORCLI} -v
+    echo_execute ${FILESTORCLI} ${STORCLI} show ctrlcount
+    echo_execute ${FILESTORCLI} ${STORCLI} show
+    echo_execute ${FILESTORCLI} ${STORCLI} show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show 
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show jbod
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show bootdrive
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show autorebuild
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show cachebypass
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show batterywarning
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show abortcconerror
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show ncq
+    
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/sall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/sall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/sall show all
+
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show init
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show cc
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show erase
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show migrate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show bgi
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show autobgi
+
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show cachecade
+
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/pall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/pall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/pall show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/fall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/fall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/fall show all
+
+    echo -n "."
+    echo -n "."
+}
+
+
 function net-update () {
     FILENET=${DIARIO}/net-list
 #     IFCONFIG=/sbin/ifconfig
@@ -1303,6 +1361,9 @@ function update-slow-diario () {
     twcli-update
     echo
     echo -n "twcli-update finished   "
+    storcli-update
+    echo
+    echo -n "storcli-update finished   "
     date
 }
 
