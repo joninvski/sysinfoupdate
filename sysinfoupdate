@@ -1084,8 +1084,15 @@ function storcli-update () {
     echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show status
     echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show all
     echo_execute ${FILESTORCLI} ${STORCLI} /call/sall show
-    echo_execute ${FILESTORCLI} ${STORCLI} /call/sall show status
     echo_execute ${FILESTORCLI} ${STORCLI} /call/sall show all
+
+    echo -n "."
+
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall/sall show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall/sall show status
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall/sall show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall/sall show initialization
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/eall/sall show rebuild
 
     echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show
     echo_execute ${FILESTORCLI} ${STORCLI} /call/vall show status
@@ -1109,7 +1116,6 @@ function storcli-update () {
     echo_execute ${FILESTORCLI} ${STORCLI} /call/fall show status
     echo_execute ${FILESTORCLI} ${STORCLI} /call/fall show all
 
-    echo -n "."
     echo -n "."
 }
 
@@ -1315,8 +1321,11 @@ function update-fast-diario () {
     date
     echo -n "  kernel-update begin   "
     kernel-update
-    echo -n "  kernel-update finished   "
-    date
+    #echo -n "  kernel-update finished   "
+    storcli-update
+    #echo -n "storcli-update finished   "
+    #date
+    echo
 }
 
 function update-slow-diario () {
@@ -1361,7 +1370,6 @@ function update-slow-diario () {
     twcli-update
     echo
     echo -n "twcli-update finished   "
-    storcli-update
     echo
     echo -n "storcli-update finished   "
     date
