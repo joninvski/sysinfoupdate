@@ -174,9 +174,11 @@ function partition-update () {
     echo -n "."
     > ${FILEPART}
     for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/xvd? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
-	echo -n "${disk} "
+	#echo -n "${disk} "
+        echo -n "."
 	if test -r ${disk} ; then
-	echo -n "${disk} "
+	    #echo -n "${disk} "
+            echo -n "."
 	    echo_execute ${FILEPART} ${FDISK} -l ${disk} 2> /dev/null
 	    echo_execute ${FILEPART} ${GDISK} -l ${disk}
 	    echo_execute ${FILEPART} ${PARTED} ${disk} print unit s print
@@ -185,8 +187,9 @@ function partition-update () {
     echo -n "."
     if test -x ${PARTED} ; then
 	echo "${PARTED} -l" >> ${FILEPART}
-	time ${PARTED} -l >> ${FILEPART}
-	echo "parted -l"
+	#time ${PARTED} -l >> ${FILEPART}
+        ${PARTED} -l >> ${FILEPART}
+	#echo "parted -l"
     else
 	echo 
 	echo "${PARTED} not found, please check or install parted"
@@ -659,7 +662,8 @@ function hdparm-update () {
     > ${FILEHDPARM}
     for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/xvd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
 	if test -r ${disk} ; then
-	    echo -n " " ${disk} " "
+	    #echo -n " " ${disk} " "
+            echo -n "."
  	    echo_execute ${FILEHDPARM} ${HDPARM}    ${disk}
  	    echo_execute ${FILEHDPARM} ${HDPARM} -i ${disk}
  	    echo_execute ${FILEHDPARM} ${HDPARM} -I ${disk}
@@ -671,7 +675,8 @@ function hdparm-update () {
     > ${FILESDPARM}
     for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/xvd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc /dev/mmcblk? ; do
 	if test -r ${disk} ; then
-	    echo -n " " ${disk} " "
+	    #echo -n " " ${disk} " "
+            echo -n "."
  	    echo_execute ${FILESDPARM} ${SDPARM} --all                  ${disk}
  	    echo_execute ${FILESDPARM} ${SDPARM} --all --long           ${disk}
  	    echo_execute ${FILESDPARM} ${SDPARM} --all --long --verbose ${disk}
@@ -704,7 +709,8 @@ function smart-update () {
 	    esac
         done
         if test $(( i )) -ge 1 ; then
-            echo "$DEV -d $TYPE"
+            #echo "$DEV -d $TYPE"
+            echo -n "."
             echo_execute ${FILESMART} ${SMARTCTL} -a "$DEV" -d "$TYPE"
             echo >> ${FILESMART}
         fi
@@ -713,7 +719,7 @@ function smart-update () {
 
     for disk in /dev/hd? /dev/sd? /dev/dasd? /dev/vd? /dev/sr? /dev/cciss/c?d? /dev/cciss/c?d?? /dev/cciss/disc?/disc ; do
 	if test -r ${disk} ; then
-	    echo -n " " ${disk} " "
+	    #echo -n " " ${disk} " "
  	    echo_execute ${FILESMART} ${SMARTCTL} -a ${disk}
 	fi
     done
@@ -1231,7 +1237,7 @@ function net-update () {
     for file in /proc/sys/net/ipv4/netfilter/* ; do
 	cat-file "${file}" ${FILENET}
     done
-    echo "Should reduce conf variables to record from all interfaces"
+    echo "Should reduce conf variables to record from all interfaces" >> ${FILENET}
     for file in /proc/sys/net/ipv4/conf/*/* ; do
 	cat-file "${file}" ${FILENET}
     done
@@ -1289,37 +1295,37 @@ function services-update () {
 function update-fast-diario () {
 
 
-    date
-    echo -n "  lvm-update begin   "
+    #date
+    #echo -n "  lvm-update begin   "
     lvm-update
-    date
-    echo -n "  md-update begin   "
+    #date
+    #echo -n "  md-update begin   "
     md-update
-    date
-    echo -n "  fslist-update begin   "
+    #date
+    #echo -n "  fslist-update begin   "
     fslist-update
-    date
-    echo -n "  fstab-update begin   "
+    #date
+    #echo -n "  fstab-update begin   "
     fstab-update
-    date
-    echo -n "  kernel-boot begin   "
+    #date
+    #echo -n "  kernel-boot begin   "
     kernel-boot
-    date
-    echo -n "  hardware begin   "
+    #date
+    #echo -n "  hardware begin   "
     hardware-update
-    echo -n "  hardware finished  "
-    date
+    #echo -n "  hardware finished  "
+    #date
     smart-update
-    echo
-    echo -n "smart-update finished   " 
-    date
+    #echo
+    #echo -n "smart-update finished   " 
+    #date
     packages-list-update 
-    date
+    #date
     net-update
-    date
+    #date
     services-update
-    date
-    echo -n "  kernel-update begin   "
+    #date
+    #echo -n "  kernel-update begin   "
     kernel-update
     #echo -n "  kernel-update finished   "
     storcli-update
@@ -1329,25 +1335,25 @@ function update-fast-diario () {
 }
 
 function update-slow-diario () {
-    date
+    #date
     echo -n "  hpacucli begin   "
     hpacucli-update &
     #echo -n "  hpacucli finished   "
     echo
-    date
+    #date
     echo -n "  ilo-update begin    "
     ilo-update &
     #echo -n "  ilo-update finished   "
     echo
-    date
+    #date
     echo -n "  partition-update begin   "
     partition-update &
     echo "   Waiting for slow tasks   "
     wait
     echo " Done "
-    date
+    #date
     echo "Doing demanding tasks"
-    date
+    #date
     hwinfo-update
     echo
     echo -n "hwinfo-update finished   " 
@@ -1358,21 +1364,21 @@ function update-slow-diario () {
     hp-hardware-update
     echo
     echo -n "hp-hardware-update finished   " 
-    date
+    #date
     video-update
     echo
     echo -n "video-update finished   "
-    date
+    #date
     ipmi-update
     echo
     echo -n "ipmi-update finished   "
-    date
+    #date
     twcli-update
     echo
     echo -n "twcli-update finished   "
     echo
-    echo -n "storcli-update finished   "
-    date
+    #date
+    echo
 }
 
 if [ -d ${DIARIO} ] ; then
