@@ -1065,6 +1065,7 @@ function twcli-update () {
 
 function storcli-update () {
     FILESTORCLI=${DIARIO}/storcli-report
+    FILESTORCLIEVENTS=${DIARIO}/storcli-events-report
     
 
     if ! which ${STORCLI} > /dev/null ; then
@@ -1072,12 +1073,14 @@ function storcli-update () {
     fi
 
     > ${FILESTORCLI}
+    > ${FILESTORCLIEVENTS}
     echo_execute ${FILESTORCLI} ${STORCLI} -v
     echo_execute ${FILESTORCLI} ${STORCLI} show ctrlcount
     echo_execute ${FILESTORCLI} ${STORCLI} show
     echo_execute ${FILESTORCLI} ${STORCLI} show all
     echo_execute ${FILESTORCLI} ${STORCLI} /call show 
     echo_execute ${FILESTORCLI} ${STORCLI} /call show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show freespace
     echo_execute ${FILESTORCLI} ${STORCLI} /call show jbod
     echo_execute ${FILESTORCLI} ${STORCLI} /call show bootdrive
     echo_execute ${FILESTORCLI} ${STORCLI} /call show autorebuild
@@ -1085,6 +1088,53 @@ function storcli-update () {
     echo_execute ${FILESTORCLI} ${STORCLI} /call show batterywarning
     echo_execute ${FILESTORCLI} ${STORCLI} /call show abortcconerror
     echo_execute ${FILESTORCLI} ${STORCLI} /call show ncq
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show activityforlocate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show alarm
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show backplane
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show bgirate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show bootwithpinnedcache
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show cachebypass
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show cacheflushint
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show ccrate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show clusterenable
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show coercion
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show consistencycheck
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show copyback
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show directpdmapping
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show dimmerswitch
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show eccbucketleakrate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show eccbucketsize
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show enableeghsp
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show enableesmarter
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show enableeug
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show exposeencldevice
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show loadbalancemode
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show maintainpdfailhistory
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show migraterate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show patrolread
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show perfmode
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show pi
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show preventpiimport
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show prcorrectunconfiguredareas
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show prrate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show rebuildrate
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show rehostinfo
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show restorehotspare
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show safeid
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show smartpollinterval
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show spinupdelay
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show spinupdrivecount
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show time
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show usefdeonlyencrypt
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show memscrubpatterns
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show badblocks
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show stoponerror
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show eventloginfo
+    echo_execute ${FILESTORCLI} ${STORCLI} /call show events file=${FILESTORCLIEVENTS}
+    echo_execute ${FILESTORCLIEVENTS} ${STORCLI} /call show termlog type=config
+    echo_execute ${FILESTORCLIEVENTS} ${STORCLI} /call show termlog type=contents
+
+    echo -n "."
     
     echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show
     echo_execute ${FILESTORCLI} ${STORCLI} /call/eall show status
@@ -1114,6 +1164,14 @@ function storcli-update () {
     echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show status
     echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show all
     echo_execute ${FILESTORCLI} ${STORCLI} /call/dall show cachecade
+
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/cv show
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/cv show all
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/cv show modes
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/cv show properties
+    echo_execute ${FILESTORCLI} ${STORCLI} /call/cv show status
+
+    echo -n "."
 
     echo_execute ${FILESTORCLI} ${STORCLI} /call/pall show
     echo_execute ${FILESTORCLI} ${STORCLI} /call/pall show status
