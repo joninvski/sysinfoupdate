@@ -1066,6 +1066,7 @@ function twcli-update () {
 function storcli-update () {
     FILESTORCLI=${DIARIO}/storcli-report
     FILESTORCLIEVENTS=${DIARIO}/storcli-events-report
+    FILESTORCLITERMLOG=${DIARIO}/storcli-termlog-report
     
 
     if ! which ${STORCLI} > /dev/null ; then
@@ -1074,6 +1075,7 @@ function storcli-update () {
 
     > ${FILESTORCLI}
     > ${FILESTORCLIEVENTS}
+    > ${FILESTORCLITERMLOG}
     echo_execute ${FILESTORCLI} ${STORCLI} -v
     echo_execute ${FILESTORCLI} ${STORCLI} show ctrlcount
     echo_execute ${FILESTORCLI} ${STORCLI} show
@@ -1131,8 +1133,8 @@ function storcli-update () {
     echo_execute ${FILESTORCLI} ${STORCLI} /call show stoponerror
     echo_execute ${FILESTORCLI} ${STORCLI} /call show eventloginfo
     echo_execute ${FILESTORCLI} ${STORCLI} /call show events file=${FILESTORCLIEVENTS}
-    echo_execute ${FILESTORCLIEVENTS} ${STORCLI} /call show termlog type=config
-    echo_execute ${FILESTORCLIEVENTS} ${STORCLI} /call show termlog type=contents
+    echo_execute ${FILESTORCLITERMLOG} ${STORCLI} /call show termlog type=config
+    echo_execute ${FILESTORCLITERMLOG} ${STORCLI} /call show termlog type=contents
 
     echo -n "."
     
