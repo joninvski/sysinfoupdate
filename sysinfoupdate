@@ -270,7 +270,7 @@ function md-update () {
         echo $file    >> ${FILEMD}
         for dev in $file/md/rd* ; do
             echo $dev    >> ${FILEMD}
-            ls -alF $dev >> ${FILEMD}
+            ls -alF --time-style=+ $dev >> ${FILEMD}
         done
         echo >> ${FILEMD}
     done
@@ -282,10 +282,10 @@ function md-update () {
         echo $file    >> ${FILEMD}
         for dev in $file/md/rd* ; do
             echo $dev    >> ${FILEMD}
-            ls -alF $dev >> ${FILEMD}
+            ls -alF --time-style=+ $dev >> ${FILEMD}
             for fi in $dev/* ; do
                 if test `basename $fi` = "block"; then
-                    ls -alF $fi >> ${FILEMD}
+                    ls -alF --time-style=+ $fi >> ${FILEMD}
                 else
                     cat-file $fi ${FILEMD}
                 fi
