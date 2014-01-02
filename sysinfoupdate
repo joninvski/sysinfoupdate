@@ -7,7 +7,7 @@
 # License: GPL-2
 #
 BRANCH="git branch master"
-VERSION='v0.9.20'
+VERSION='v0.9.21'
 
 
 
@@ -218,10 +218,10 @@ function fslist-update () {
     echo_execute ${FILEFS} ${DF} -h
     echo "inodes of filesystems df -iH" >> ${FILEFS}
     echo_execute ${FILEFS} ${DF} -iH
-    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-id
-    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-label
-    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-path
-    echo_execute ${FILEFS} /bin/ls -alF /dev/disk/by-uuid
+    echo_execute ${FILEFS} /bin/ls -alF --time-style=+ /dev/disk/by-id
+    echo_execute ${FILEFS} /bin/ls -alF --time-style=+ /dev/disk/by-label
+    echo_execute ${FILEFS} /bin/ls -alF --time-style=+ /dev/disk/by-path
+    echo_execute ${FILEFS} /bin/ls -alF --time-style=+ /dev/disk/by-uuid
 }
 
 function fstab-update () {
