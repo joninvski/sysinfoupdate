@@ -1469,6 +1469,7 @@ if [ -d ${DIARIO} ] ; then
 	esac
     fi
 else
-    echo "Don't exist ${DIARIO} directory, not running"
+    echo "sysinfoupdate: Error '${DIARIO}' directory does not exist. Exiting without running"
+    exit 1
 fi
 
